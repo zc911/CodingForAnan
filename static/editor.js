@@ -69,9 +69,12 @@ function buildInputShim(values) {
 import builtins as _b
 _q = ${JSON.stringify(values)}
 _qi = [0]
+_max_calls = 50
 def _input(prompt=''):
-    i = _qi[0] % len(_q)
     _qi[0] += 1
+    if _qi[0] > _max_calls:
+        raise RuntimeError('⚠️ input() 调用超过 50 次，可能陷入了无限循环。请检查循环条件，或填写更多模拟输入值。')
+    i = (_qi[0] - 1) % len(_q)
     val = _q[i]
     if prompt: print(prompt + str(val))
     return str(val)
