@@ -9,9 +9,9 @@
 3. 每次猜完，电脑提示"大了"或"小了"
 4. 猜对了，显示猜了几次
 
-## 先试试浏览器演示版（1-20，更容易猜）
+## 先试试演示版（1-20，更容易猜）
 
-```python demo title="猜数字游戏（演示版，范围1-20）"
+```python demo title="猜数字游戏（1-20）"
 import random
 
 secret = random.randint(1, 20)
@@ -33,7 +33,7 @@ print("🎉 猜对了！你猜了", attempts, "次！")
 
 ## 在 Thonny 里跑完整版
 
-```python exercise title="猜数字游戏（完整版，在 Thonny 运行）"
+```python exercise title="猜数字游戏（完整版，1-100）"
 import random
 
 secret = random.randint(1, 100)
