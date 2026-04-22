@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}Anan 的 Python 课程{% endblock %}</title>
+  <link rel="stylesheet" href="/static/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.17/codemirror.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.17/theme/dracula.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.17/codemirror.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.17/mode/python/python.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/pyodide/v0.26.4/full/pyodide.js"></script>
+</head>
+<body>
+  <header class="site-header">
+    <a href="/" class="site-logo">🐍 Anan 的 Python 课程</a>
+  </header>
+
+  <div id="pyodide-status" class="pyodide-status loading">
+    <span>正在加载 Python 环境…</span>
+    <div class="progress-bar"><div class="progress-fill"></div></div>
+  </div>
+
+  <main>{% block content %}{% endblock %}</main>
+
+  <script src="/static/editor.js"></script>
+  {% block scripts %}{% endblock %}
+</body>
+</html>

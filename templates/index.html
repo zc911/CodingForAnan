@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}Anan 的 Python 课程 — 目录{% endblock %}
+
+{% block content %}
+<div class="index-hero">
+  <h1>欢迎来到 Anan 的 Python 课程！🐍</h1>
+  <p>一共 {{ lessons | length }} 节课，每节约 1 小时。加油！</p>
+</div>
+<div class="lessons-grid">
+  {% for lesson in lessons %}
+  <a href="/{{ lesson.slug }}/" class="lesson-card">
+    <div class="lesson-num">第 {{ lesson.num }} 课</div>
+    <div class="lesson-card-title">{{ lesson.title }}</div>
+    <div class="lesson-card-summary">{{ lesson.summary }}</div>
+    <div class="lesson-status" data-lesson="{{ lesson.num }}">○ 未开始</div>
+  </a>
+  {% endfor %}
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+  document.querySelectorAll('.lesson-status').forEach(el => {
+    if (localStorage.getItem('lesson_' + el.dataset.lesson + '_complete')) {
+      el.textContent = '✅ 已完成';
+      el.classList.add('done');
+      el.closest('.lesson-card').classList.add('completed');
+    }
+  });
+</script>
+{% endblock %}

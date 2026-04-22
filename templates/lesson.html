@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block title %}第{{ lesson_num }}课：{{ title }}{% endblock %}
+
+{% block content %}
+<div class="lesson-nav">
+  {% if prev %}
+    <a href="/{{ prev.slug }}/" class="nav-btn">← 第{{ prev.num }}课</a>
+  {% else %}
+    <span class="nav-btn disabled">← 上一课</span>
+  {% endif %}
+  <span class="lesson-title-nav">第{{ lesson_num }}课：{{ title }}</span>
+  {% if next %}
+    <a href="/{{ next.slug }}/" class="nav-btn">第{{ next.num }}课 →</a>
+  {% else %}
+    <span class="nav-btn disabled">下一课 →</span>
+  {% endif %}
+</div>
+
+<div class="lesson-layout">
+  <article class="lesson-body">{{ body | safe }}</article>
+  <aside class="cheatsheet">
+    <h3>📌 本课要点</h3>
+    <div id="cheatsheet-content"></div>
+  </aside>
+</div>
+
+<div class="lesson-footer">
+  <button class="complete-btn" id="complete-btn" data-lesson="{{ lesson_num }}">
+    ✅ 标记本课完成
+  </button>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+  // Populate cheatsheet from h2 headings
+  document.querySelectorAll('.lesson-body h2').forEach(h => {
+    const item = document.createElement('div');
+    item.className = 'cheatsheet-item';
+    item.textContent = h.textContent;
+    document.getElementById('cheatsheet-content').appendChild(item);
+  });
+  // Completion tracking
+  const btn = document.getElementById('complete-btn');
+  const key = 'lesson_' + btn.dataset.lesson + '_complete';
+  if (localStorage.getItem(key)) { btn.textContent = '✅ 已完成！'; btn.classList.add('done'); }
+  btn.addEventListener('click', () => {
+    localStorage.setItem(key, '1');
+    btn.textContent = '✅ 已完成！';
+    btn.classList.add('done');
+  });
+</script>
+{% endblock %}
