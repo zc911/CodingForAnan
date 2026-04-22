@@ -148,8 +148,8 @@ document.addEventListener('DOMContentLoaded', () => {
       extraKeys: { Tab: (cm) => cm.replaceSelection('    ') },
     });
     editors[index] = cm;
-    // Exercise blocks: show input fields based on code content
-    if (ta.closest('.exercise-block')) {
+    // Show input fields for any block that uses input()
+    if (countInputCalls(cm.getValue()) > 0) {
       cm.on('change', () => renderInputFields(index, countInputCalls(cm.getValue())));
       renderInputFields(index, countInputCalls(cm.getValue()));
     }

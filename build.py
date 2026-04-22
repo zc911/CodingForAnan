@@ -39,6 +39,7 @@ def _render_code_block(block):
             f'<div class="code-actions">'
             f'<button class="run-btn" data-index="{idx}">▶ 运行</button>'
             f'</div>'
+            f'<div class="code-block-input-area" id="inputs-{idx}"></div>'
             f'<div class="output-area" id="output-{idx}"></div>'
             f'</div>'
         )
