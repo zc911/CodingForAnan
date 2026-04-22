@@ -14,6 +14,7 @@ async function loadPyodideAndSetup() {
       stdout: (text) => appendOutput(currentRunIndex, text),
       stderr: (text) => appendOutput(currentRunIndex, text, 'error'),
     });
+    await setupAsyncInput();
     if (statusEl) {
       statusEl.className = 'pyodide-status ready';
       statusEl.querySelector('span').textContent = '✅ Python 环境已就绪';
@@ -23,6 +24,49 @@ async function loadPyodideAndSetup() {
   } catch (err) {
     if (statusEl) statusEl.querySelector('span').textContent = '❌ 加载失败，请刷新页面';
   }
+}
+
+// ---- Async input() ----
+async function setupAsyncInput() {
+  // Expose JS input handler to Python
+  window.handlePyodideInput = (promptText) => {
+    return new Promise((resolve) => {
+      const index = currentRunIndex;
+      const container = document.getElementById('inputs-' + index);
+      if (!container) { resolve(''); return; }
+      container.innerHTML = '';
+
+      if (promptText) {
+        const promptEl = document.createElement('div');
+        promptEl.className = 'input-prompt';
+        promptEl.textContent = promptText;
+        container.appendChild(promptEl);
+      }
+
+      const field = document.createElement('input');
+      field.type = 'text';
+      field.className = 'input-field';
+      field.placeholder = '输入后按回车 ↵';
+      field.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          const val = field.value;
+          if (promptText) appendOutput(index, promptText + val);
+          container.innerHTML = '';
+          resolve(val);
+        }
+      });
+      container.appendChild(field);
+      field.focus();
+    });
+  };
+
+  // Override builtins.input with async version
+  await pyodide.runPythonAsync(`
+import builtins
+async def _input(prompt=''):
+    return await __import__('js').window.handlePyodideInput(prompt or '')
+builtins.input = _input
+`);
 }
 
 // ---- Output ----
@@ -35,73 +79,27 @@ function appendOutput(index, text, type) {
   el.appendChild(line);
 }
 
-// ---- input() shim ----
-function countInputCalls(code) {
-  return (code.match(/\binput\s*\(/g) || []).length;
-}
-
-function renderInputFields(index, count) {
-  const container = document.getElementById('inputs-' + index);
-  if (!container) return;
-  container.innerHTML = '';
-  if (count === 0) return;
-  const label = document.createElement('div');
-  label.className = 'input-label';
-  label.textContent = `模拟输入（共 ${count} 个，循环使用${count > 1 ? '，如 while 循环会重复' : ''}）：`;
-  container.appendChild(label);
-  for (let i = 0; i < count; i++) {
-    const f = document.createElement('input');
-    f.type = 'text';
-    f.className = 'input-field';
-    f.placeholder = `第 ${i + 1} 个 input() 的值`;
-    container.appendChild(f);
-  }
-}
-
-function getInputValues(index) {
-  const container = document.getElementById('inputs-' + index);
-  if (!container) return [];
-  return Array.from(container.querySelectorAll('.input-field')).map(f => f.value);
-}
-
-function buildInputShim(values) {
-  return `
-import builtins as _b
-_q = ${JSON.stringify(values)}
-_qi = [0]
-_max_calls = 50
-def _input(prompt=''):
-    _qi[0] += 1
-    if _qi[0] > _max_calls:
-        raise RuntimeError('⚠️ input() 调用超过 50 次，可能陷入了无限循环。请检查循环条件，或填写更多模拟输入值。')
-    i = (_qi[0] - 1) % len(_q)
-    val = _q[i]
-    if prompt: print(prompt + str(val))
-    return str(val)
-_b.input = _input
-`;
-}
-
 // ---- Run ----
 async function runCode(index) {
   if (!pyodide) return;
-  document.getElementById('output-' + index).innerHTML = '';
+  const outputEl = document.getElementById('output-' + index);
+  const inputContainer = document.getElementById('inputs-' + index);
+  if (outputEl) outputEl.innerHTML = '';
+  if (inputContainer) inputContainer.innerHTML = '';
   currentRunIndex = index;
 
   const cm = editors[index];
   const code = cm ? cm.getValue() : (document.getElementById('editor-' + index) || {}).value || '';
-  const inputCount = countInputCalls(code);
-  const inputValues = getInputValues(index);
 
-  if (inputCount > 0) {
-    if (inputValues.length < inputCount || inputValues.some(v => v.trim() === '')) {
-      appendOutput(index, `⚠️ 请先填写 ${inputCount} 个模拟输入（不能为空），再点击运行。`, 'error');
-      return;
-    }
+  // Auto-add await before input() calls so they become await points
+  const hasInput = /\binput\s*\(/.test(code);
+  let finalCode = code;
+  if (hasInput) {
+    finalCode = code.replace(/\binput\s*\(/g, 'await input(');
   }
 
   try {
-    await pyodide.runPythonAsync(buildInputShim(inputValues) + '\n' + code);
+    await pyodide.runPythonAsync(finalCode);
     if (Math.random() < 0.25) showCelebration();
   } catch (err) {
     appendOutput(index, friendlyError(err.message), 'error');
@@ -152,11 +150,6 @@ document.addEventListener('DOMContentLoaded', () => {
       extraKeys: { Tab: (cm) => cm.replaceSelection('    ') },
     });
     editors[index] = cm;
-    // Show input fields for any block that uses input()
-    if (countInputCalls(cm.getValue()) > 0) {
-      cm.on('change', () => renderInputFields(index, countInputCalls(cm.getValue())));
-      renderInputFields(index, countInputCalls(cm.getValue()));
-    }
   });
 
   document.querySelectorAll('.run-btn').forEach(btn => {
