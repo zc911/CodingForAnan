@@ -71,7 +71,9 @@ _q = ${JSON.stringify(values)}
 _qi = [0]
 def _input(prompt=''):
     i = _qi[0]
-    val = _q[i] if i < len(_q) else ''
+    if i >= len(_q):
+        raise ValueError('模拟输入不够！请在页面顶部填写更多输入值。')
+    val = _q[i]
     _qi[0] += 1
     if prompt: print(prompt + str(val))
     return str(val)
@@ -90,10 +92,13 @@ async function runCode(index) {
   const inputCount = countInputCalls(code);
   const inputValues = getInputValues(index);
 
-  if (inputCount > 0 && inputValues.length < inputCount) {
+  if (inputCount > 0) {
     renderInputFields(index, inputCount);
-    appendOutput(index, `⚠️ 请先填写 ${inputCount} 个模拟输入，再点击运行。`, 'error');
-    return;
+    const filledValues = getInputValues(index);
+    if (filledValues.length < inputCount || filledValues.some(v => v.trim() === '')) {
+      appendOutput(index, `⚠️ 请先填写 ${inputCount} 个模拟输入（不能为空），再点击运行。`, 'error');
+      return;
+    }
   }
 
   try {
