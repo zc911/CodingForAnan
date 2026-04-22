@@ -47,7 +47,7 @@ function renderInputFields(index, count) {
   if (count === 0) return;
   const label = document.createElement('div');
   label.className = 'input-label';
-  label.textContent = `模拟输入（共 ${count} 个，按顺序填写）：`;
+  label.textContent = `模拟输入（共 ${count} 个，循环使用${count > 1 ? '，如 while 循环会重复' : ''}）：`;
   container.appendChild(label);
   for (let i = 0; i < count; i++) {
     const f = document.createElement('input');
@@ -70,11 +70,9 @@ import builtins as _b
 _q = ${JSON.stringify(values)}
 _qi = [0]
 def _input(prompt=''):
-    i = _qi[0]
-    if i >= len(_q):
-        raise ValueError('模拟输入不够！请在页面顶部填写更多输入值。')
-    val = _q[i]
+    i = _qi[0] % len(_q)
     _qi[0] += 1
+    val = _q[i]
     if prompt: print(prompt + str(val))
     return str(val)
 _b.input = _input
