@@ -4,11 +4,9 @@
 
 数据光看数字不够直观，画成图表一目了然！
 
-> **注意：** matplotlib 在 Pyodide 中可以运行，图表会直接显示在代码块下方。在 Thonny 里运行会弹出窗口。
+> **注意：** matplotlib 需要在 Thonny 里运行（会弹出图表窗口）。先安装：`pip install matplotlib`
 
-```python demo title="第一个柱状图"
-import matplotlib
-matplotlib.use('agg')
+```python thonny title="第一个柱状图"
 import matplotlib.pyplot as plt
 
 # Anan 的零花钱记录
@@ -25,9 +23,7 @@ plt.show()
 
 ## 饼图：时间分配
 
-```python demo title="饼图：一天的时间分配"
-import matplotlib
-matplotlib.use('agg')
+```python thonny title="饼图：一天的时间分配"
 import matplotlib.pyplot as plt
 
 activities = ["睡觉", "上学", "作业", "玩耍", "吃饭", "其他"]
@@ -42,9 +38,7 @@ plt.show()
 
 ## 折线图：成绩趋势
 
-```python demo title="折线图：数学成绩趋势"
-import matplotlib
-matplotlib.use('agg')
+```python thonny title="折线图：数学成绩趋势"
 import matplotlib.pyplot as plt
 
 exams = ["第1次", "第2次", "第3次", "第4次", "第5次"]
@@ -64,9 +58,7 @@ plt.show()
 
 ## 练习
 
-```python exercise title="画你的数据图表"
-import matplotlib
-matplotlib.use('agg')
+```python thonny title="画你的数据图表"
 import matplotlib.pyplot as plt
 
 # 画出你最喜欢的科目投票结果
