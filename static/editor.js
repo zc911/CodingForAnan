@@ -93,9 +93,7 @@ async function runCode(index) {
   const inputValues = getInputValues(index);
 
   if (inputCount > 0) {
-    renderInputFields(index, inputCount);
-    const filledValues = getInputValues(index);
-    if (filledValues.length < inputCount || filledValues.some(v => v.trim() === '')) {
+    if (inputValues.length < inputCount || inputValues.some(v => v.trim() === '')) {
       appendOutput(index, `⚠️ 请先填写 ${inputCount} 个模拟输入（不能为空），再点击运行。`, 'error');
       return;
     }
