@@ -19,7 +19,7 @@
 
 ## 画一个正方形
 
-```python exercise title="正方形（在 Thonny 运行）"
+```python thonny title="正方形"
 import turtle
 
 t = turtle.Turtle()
@@ -35,7 +35,7 @@ turtle.done()
 
 ## 画一朵花
 
-```python exercise title="旋转花朵（在 Thonny 运行）"
+```python thonny title="旋转花朵"
 import turtle
 
 t = turtle.Turtle()

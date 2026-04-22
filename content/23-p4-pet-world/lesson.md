@@ -59,7 +59,7 @@ for pet in pets:
 
 ## 完整版（在 Thonny 运行）
 
-```python exercise title="宠物世界完整版（在 Thonny 运行）"
+```python thonny title="宠物世界完整版"
 class Pet:
     def __init__(self, name, species):
         self.name = name

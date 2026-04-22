@@ -54,9 +54,11 @@ body { font-family: var(--font); font-size: 18px; line-height: 1.7; color: var(-
 .code-block { margin: 20px 0; border-radius: var(--radius); overflow: hidden; border: 2px solid var(--border); }
 .demo-block { border-color: #93c5fd; }
 .exercise-block { border-color: #86efac; }
+.thonny-block { border-color: #fdba74; }
 .code-block-header { padding: 10px 16px; font-weight: 600; font-size: 0.95rem; }
 .demo-block .code-block-header { background: #dbeafe; color: #1d4ed8; }
 .exercise-block .code-block-header { background: #dcfce7; color: #15803d; }
+.thonny-block .code-block-header { background: #fff7ed; color: #c2410c; }
 .CodeMirror { font-family: var(--mono) !important; font-size: 15px !important; height: auto !important; min-height: 60px; }
 .CodeMirror-scroll { max-height: 400px; }
 .code-actions { display: flex; gap: 8px; padding: 8px 12px; background: var(--code-bg); }

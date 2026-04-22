@@ -6,7 +6,7 @@
 
 ## 第一个窗口程序
 
-```python exercise title="Hello tkinter！（在 Thonny 运行）"
+```python thonny title="Hello tkinter！"
 import tkinter as tk
 
 # 创建窗口
@@ -41,7 +41,7 @@ window.mainloop()
 
 ## 做一个简易计算器
 
-```python exercise title="简易计算器（在 Thonny 运行）"
+```python thonny title="简易计算器"
 import tkinter as tk
 
 def calculate():

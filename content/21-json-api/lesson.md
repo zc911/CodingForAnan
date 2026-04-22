@@ -60,7 +60,7 @@ for s in loaded:
 
 > **注意：** API 调用需要在 Thonny 里运行（浏览器有安全限制）。先安装 `requests`：`pip install requests`
 
-```python exercise title="调用免费 API（在 Thonny 运行）"
+```python thonny title="调用免费 API"
 import requests
 import json
 
@@ -77,7 +77,7 @@ print("😄 笑话：", data["value"])
 
 ## 练习
 
-```python exercise title="JSON 数据管理（在 Thonny 运行）"
+```python thonny title="JSON 数据管理"
 import json
 
 # 1. 创建一个通讯录并保存

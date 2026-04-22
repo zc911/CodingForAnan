@@ -8,7 +8,7 @@
 
 整合 AI 对话能力，做一个有特殊功能的智能助手：
 
-```python exercise title="选项 A：AI 小助手（在 Thonny 运行）"
+```python thonny title="选项 A：AI 小助手"
 import requests
 import json
 
@@ -57,7 +57,7 @@ while True:
 
 做一个完整的贪吃蛇游戏：
 
-```python exercise title="选项 B：贪吃蛇（在 Thonny 运行）"
+```python thonny title="选项 B：贪吃蛇"
 # 贪吃蛇游戏框架——完善它！
 import tkinter as tk
 import random
@@ -141,7 +141,7 @@ window.mainloop()
 
 用 matplotlib 分析数据，生成可视化报告：
 
-```python exercise title="选项 C：数据分析（在 Thonny 运行）"
+```python thonny title="选项 C：数据分析"
 # 分析班级成绩数据
 import matplotlib.pyplot as plt
 import json

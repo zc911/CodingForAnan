@@ -25,7 +25,7 @@
 >    - 把 key 复制下来（只显示一次！）
 > 3. 在代码里把 `你的API_KEY` 替换成你的 key
 
-```python exercise title="第一次和 AI 对话（在 Thonny 运行）"
+```python thonny title="第一次和 AI 对话"
 import requests
 import json
 
@@ -74,7 +74,7 @@ AI 的对话用 JSON 格式传递，每条消息有**角色**：
 | `user` | 用户说的话 |
 | `assistant` | AI 说的话 |
 
-```python exercise title="给 AI 设定角色（在 Thonny 运行）"
+```python thonny title="给 AI 设定角色"
 import requests
 import json
 

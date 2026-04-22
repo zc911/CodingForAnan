@@ -4,7 +4,7 @@
 
 上节课每次调用 API 都是"失忆"的——AI 不知道之前聊了什么。要让 AI **连续对话**，需要把之前的对话记录都发过去：
 
-```python exercise title="多轮对话机器人（在 Thonny 运行）"
+```python thonny title="多轮对话机器人"
 import requests
 import json
 
@@ -56,7 +56,7 @@ while True:
 
 `system` 消息就像给 AI 写"人设"：
 
-```python exercise title="不同人格的 AI（在 Thonny 运行）"
+```python thonny title="不同人格的 AI"
 import requests
 import json
 

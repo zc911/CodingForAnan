@@ -11,7 +11,7 @@ DIST_DIR = Path("dist")
 TEMPLATES_DIR = Path("templates")
 
 _CODE_BLOCK_RE = re.compile(
-    r'```python\s+(demo|exercise)\s+title="([^"]+)"\n(.*?)```',
+    r'```python\s+(demo|exercise|thonny)\s+title="([^"]+)"\n(.*?)```',
     re.DOTALL
 )
 
@@ -31,7 +31,18 @@ def _html_escape(s):
 def _render_code_block(block):
     code = _html_escape(block['code'])
     idx = block['index']
-    if block['type'] == 'demo':
+    if block['type'] == 'thonny':
+        filename = f"thonny_{idx:02d}.py"
+        return (
+            f'<div class="code-block thonny-block">'
+            f'<div class="code-block-header">💻 在 Thonny 运行：{block["title"]}</div>'
+            f'<textarea class="code-editor" id="editor-{idx}">{code}</textarea>'
+            f'<div class="code-actions">'
+            f'<button class="download-btn" data-index="{idx}" data-filename="{filename}">💾 下载到 Thonny</button>'
+            f'</div>'
+            f'</div>'
+        )
+    elif block['type'] == 'demo':
         return (
             f'<div class="code-block demo-block">'
             f'<div class="code-block-header">📖 演示：{block["title"]}</div>'

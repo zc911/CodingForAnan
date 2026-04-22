@@ -6,7 +6,7 @@
 
 ## 写入文件
 
-```python exercise title="写日记（在 Thonny 运行）"
+```python thonny title="写日记"
 # 'w' 模式：写入（会覆盖原有内容）
 with open("diary.txt", "w", encoding="utf-8") as f:
     f.write("今天学了文件读写！\n")
@@ -17,7 +17,7 @@ print("日记已保存！")
 
 ## 读取文件
 
-```python exercise title="读日记（在 Thonny 运行）"
+```python thonny title="读日记"
 with open("diary.txt", "r", encoding="utf-8") as f:
     content = f.read()
 
@@ -27,7 +27,7 @@ print(content)
 
 ## 追加内容
 
-```python exercise title="追加日记（在 Thonny 运行）"
+```python thonny title="追加日记"
 # 'a' 模式：追加（在末尾添加，不覆盖）
 with open("diary.txt", "a", encoding="utf-8") as f:
     new_line = input("今天还想写什么？")

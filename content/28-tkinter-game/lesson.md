@@ -8,7 +8,7 @@
 
 ## 画布基础
 
-```python exercise title="Canvas 画图（在 Thonny 运行）"
+```python thonny title="Canvas 画图"
 import tkinter as tk
 
 window = tk.Tk()
@@ -35,7 +35,7 @@ window.mainloop()
 
 用 `canvas.move()` 移动图形，用 `window.after()` 定时重复——图形就"动"了：
 
-```python exercise title="弹跳的小球（在 Thonny 运行）"
+```python thonny title="弹跳的小球"
 import tkinter as tk
 
 window = tk.Tk()
@@ -73,7 +73,7 @@ window.mainloop()
 
 ## 完整弹球游戏
 
-```python exercise title="弹球游戏（在 Thonny 运行）"
+```python thonny title="弹球游戏"
 import tkinter as tk
 
 window = tk.Tk()
