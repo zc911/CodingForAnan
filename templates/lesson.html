@@ -19,14 +19,14 @@
 <div class="lesson-layout">
   <article class="lesson-body">{{ body | safe }}</article>
   <aside class="cheatsheet">
-    <h3>📌 本课要点</h3>
+    <h3>📌 本课魔法要点</h3>
     <div id="cheatsheet-content"></div>
   </aside>
 </div>
 
 <div class="lesson-footer">
   <button class="complete-btn" id="complete-btn" data-lesson="{{ lesson_num }}">
-    ✅ 标记本课完成
+    ✅ 完成这一课！
   </button>
 </div>
 {% endblock %}
@@ -43,10 +43,10 @@
   // Completion tracking
   const btn = document.getElementById('complete-btn');
   const key = 'lesson_' + btn.dataset.lesson + '_complete';
-  if (localStorage.getItem(key)) { btn.textContent = '✅ 已完成！'; btn.classList.add('done'); }
+  if (localStorage.getItem(key)) { btn.textContent = '🎉 太棒了！已完成！'; btn.classList.add('done'); }
   btn.addEventListener('click', () => {
     localStorage.setItem(key, '1');
-    btn.textContent = '✅ 已完成！';
+    btn.textContent = '🎉 太棒了！已完成！';
     btn.classList.add('done');
   });
 </script>

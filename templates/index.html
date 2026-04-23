@@ -3,8 +3,8 @@
 
 {% block content %}
 <div class="index-hero">
-  <h1>欢迎来到 Anan 的 Python 课程！🐍</h1>
-  <p>一共 {{ lessons | length }} 节课，每节约 1 小时。加油！</p>
+  <h1>欢迎来到 Anan 的 Python 魔法学院！🐍✨</h1>
+  <p>一共 {{ lessons | length }} 节课，每节约 1 小时。一起来探险吧！🌈</p>
 </div>
 <div class="lessons-grid">
   {% for lesson in lessons %}
@@ -12,7 +12,7 @@
     <div class="lesson-num">第 {{ lesson.num }} 课</div>
     <div class="lesson-card-title">{{ lesson.title }}</div>
     <div class="lesson-card-summary">{{ lesson.summary }}</div>
-    <div class="lesson-status" data-lesson="{{ lesson.num }}">○ 未开始</div>
+    <div class="lesson-status" data-lesson="{{ lesson.num }}">○ 准备出发</div>
   </a>
   {% endfor %}
 </div>
@@ -22,7 +22,7 @@
 <script>
   document.querySelectorAll('.lesson-status').forEach(el => {
     if (localStorage.getItem('lesson_' + el.dataset.lesson + '_complete')) {
-      el.textContent = '✅ 已完成';
+      el.textContent = '🎉 已完成！';
       el.classList.add('done');
       el.closest('.lesson-card').classList.add('completed');
     }
